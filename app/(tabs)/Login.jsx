@@ -7,32 +7,29 @@ import Toast from 'react-native-toast-message';
 
 const LoginPage = () => {
   const navigation = useNavigation();
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSignIn = async () => {
-    if (!name.trim() || !email.trim()) {
-      Alert.alert('Error', 'Both fields are required.');
+  const handleLogin = async () => {
+    if (!email.trim() || !password.trim()) {
+      Alert.alert('Error', 'Please fill in both fields.');
       return;
     }
 
     try {
-      // Attempt Firebase sign-in (assuming passwordless or password is pre-configured)
-      await signInWithEmailAndPassword(auth, email, 'defaultPassword'); // Replace 'defaultPassword' if needed
-
+      await signInWithEmailAndPassword(auth, email, password);
       Toast.show({
         type: 'success',
-        text1: 'Welcome!',
-        text2: `Hello, ${name}!`,
+        text1: 'Login Successful!',
+        text2: 'Welcome back!',
       });
 
-      // Navigate to Home or Dashboard
-      navigation.navigate('Home');
+      navigation.navigate('Home'); // Adjust to your target screen
     } catch (error) {
-      let errorMessage = 'An error occurred. Please try again.';
-      if (error.code === 'auth/user-not-found') errorMessage = 'No account found for this email.';
-      if (error.code === 'auth/invalid-email') errorMessage = 'Invalid email format.';
+      let errorMessage = 'Login failed. Please try again.';
+      if (error.code === 'auth/user-not-found') errorMessage = 'No account found with this email.';
       if (error.code === 'auth/wrong-password') errorMessage = 'Incorrect password.';
+      if (error.code === 'auth/invalid-email') errorMessage = 'Invalid email format.';
 
       Alert.alert('Login Failed', errorMessage);
       Toast.show({
@@ -50,17 +47,6 @@ const LoginPage = () => {
         <Text style={styles.subTitle}>Sign in to continue</Text>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your name"
-            placeholderTextColor="#ccc"
-            value={name}
-            onChangeText={setName}
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
           <Text style={styles.label}>Email</Text>
           <TextInput
             style={styles.input}
@@ -72,11 +58,23 @@ const LoginPage = () => {
           />
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your password"
+            placeholderTextColor="#ccc"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('SignupPageWithBackground')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
           <Text style={styles.subText}>Don't have an account? Sign up here.</Text>
         </TouchableOpacity>
       </View>
