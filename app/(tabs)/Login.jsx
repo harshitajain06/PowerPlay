@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, ImageBackground, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import Toast from 'react-native-toast-message';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const LoginPage = () => {
   const navigation = useNavigation();
+  const [user, loading, error] = useAuthState(auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      navigation.replace('Home');
+    }
+  }, [user]);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {

@@ -8,7 +8,7 @@ const HomeScreen = () => {
     <ImageBackground source={require('../../assets/images/back.gif')} style={styles.background}>
       <View style={styles.container}>
         {/* Play Image */}
-        <TouchableOpacity onPress={() => navigation.navigate('Play')}>
+        <TouchableOpacity onPress={() => navigation.navigate('PlayScreen')}>
           <Image source={require('../../assets/images/play.png')} style={styles.image} />
         </TouchableOpacity>
 
