@@ -15,20 +15,8 @@ const Learn = () => {
           <TouchableOpacity onPress={() => navigation.navigate('MUN')}>
             <Image source={require('../../assets/images/mun.png')} style={styles.image} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('4v4')}>
-            <Image source={require('../../assets/images/4v4.png')} style={styles.image} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('3v3')}>
-            <Image source={require('../../assets/images/3v3.png')} style={styles.image} />
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Debate')}>
             <Image source={require('../../assets/images/debate.png')} style={styles.image} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Resources')}>
-            <Image source={require('../../assets/images/resources.png')} style={styles.image} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('2v2')}>
-            <Image source={require('../../assets/images/2v2.png')} style={styles.image} />
           </TouchableOpacity>
         </View>
       </View>
@@ -59,14 +47,13 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    flexDirection: 'column', // Change to column to stack vertically
+    alignItems: 'center',
     marginTop: 20,
   },
   image: {
-    width: 130,
-    height: 130,
+    width: 180,
+    height: 180,
     margin: 15,
     resizeMode: 'contain',
   },
